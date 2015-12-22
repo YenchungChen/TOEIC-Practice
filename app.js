@@ -10,8 +10,6 @@
   };
   
   ToeicPractice.prototype = {
-    
-   // var ans=0,isAnswering=0,answerd=0,correct=0,last=0;
 
     reset(){
       answerd = 0;
