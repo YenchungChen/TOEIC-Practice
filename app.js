@@ -46,7 +46,7 @@
          } 
       });
 
-      btnB.addEventListener('click', (function(event){
+      btnB.addEventListener('click', function(event){
         if(isAnswering){
           isAnswering = 0;
           if(ans == 2){
@@ -58,9 +58,9 @@
         } else {
           alert('Next Question!');
         }
-      }).bind(ToeicPractice.prototype));
+      });
 
-      btnC.addEventListener('click', (function(event){
+      btnC.addEventListener('click', function(event){
         if(isAnswering){
           isAnswering = 0;
           if(ans == 3){
@@ -72,9 +72,9 @@
         } else {
           alert('Next Question!');
         }
-      }).bind(ToeicPractice.prototype));
+      });
 
-      btnD.addEventListener('click', (function(event){
+      btnD.addEventListener('click', function(event){
         if(isAnswering){
           isAnswering = 0;
           if(ans == 4){
@@ -86,7 +86,7 @@
         } else {
           alert('Next Question!');
         }
-      }).bind(ToeicPractice.prototype));
+      });
 
       btnN.addEventListener('click', (function(event){
         if(isAnswering){
