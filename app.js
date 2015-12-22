@@ -5,8 +5,8 @@
     ans:0;
     isAnswering:0;
     answerd:0;
-      correct:0;
-        last:0;
+    correct:0;
+    last:0;
   };
   
   ToeicPractice.prototype = {
@@ -14,15 +14,15 @@
    // var ans=0,isAnswering=0,answerd=0,correct=0,last=0;
 
     reset(){
-      this.answerd = 0;
-      this.correct = 0;
+      answerd = 0;
+      correct = 0;
       document.querySelector('#cs').innerHTML = 'Current Scores: ';
       document.querySelector('#cr').innerHTML = 'Correct Rate: ';
       this.start();
     },
     
     start(){
-      this.isAnswering = 1;
+      isAnswering = 1;
       this.getQuestion();
     },
     
@@ -35,10 +35,10 @@
       var btnR = document.getElementById('btn_Reset');
       var btnLogin = document.getElementById('login');
       btnA.addEventListener('click', function(event){
-         if(this.isAnswering){
-           this.isAnswering = 0;
-           if(this.ans == 1){
-             this.correct++;
+         if(isAnswering){
+           isAnswering = 0;
+           if(ans == 1){
+             correct++;
              alert('You got the right answer!');
            } else {
              alert('Dum Dum');
@@ -48,11 +48,11 @@
          } 
       });
 
-      btnB.addEventListener('click', function(event){
-        if(this.isAnswering){
-          this.isAnswering = 0;
-          if(this.ans == 2){
-            this.correct++;
+      btnB.addEventListener('click', (function(event){
+        if(isAnswering){
+          isAnswering = 0;
+          if(ans == 2){
+            correct++;
             alert('You got the right answer!');
           } else {
             alert('Dum Dum');
@@ -60,13 +60,13 @@
         } else {
           alert('Next Question!');
         }
-      });
+      }).bind(ToeicPractice.prototype));
 
-      btnC.addEventListener('click', function(event){
-        if(this.isAnswering){
-          this.isAnswering = 0;
-          if(this.ans == 3){
-            this.correct++;
+      btnC.addEventListener('click', (function(event){
+        if(isAnswering){
+          isAnswering = 0;
+          if(ans == 3){
+            correct++;
             alert('You got the right answer!');
           } else {
             alert('Dum Dum');
@@ -74,13 +74,13 @@
         } else {
           alert('Next Question!');
         }
-      });
+      }).bind(ToeicPractice.prototype));
 
-      btnD.addEventListener('click', function(event){
-        if(this.isAnswering){
-          this.isAnswering = 0;
-          if(this.ans == 4){
-            this.correct++;
+      btnD.addEventListener('click', (function(event){
+        if(isAnswering){
+          isAnswering = 0;
+          if(ans == 4){
+            correct++;
             alert('You got the right answer!');
           } else {
             alert('Dum Dum');
@@ -88,22 +88,21 @@
         } else {
           alert('Next Question!');
         }
-      });
+      }).bind(ToeicPractice.prototype));
 
-      btnN.addEventListener('click', function(event){
-        if(this.isAnswering){
+      btnN.addEventListener('click', (function(event){
+        if(isAnswering){
           alert('Choose an Answer!');
         } else {
-          //alert('CurrentScores: '+correct+'/'+answerd  + '\r\nCorrect Rate: '+ Math.floor((correct/answerd)*100)+'%');
           document.querySelector('#cs').innerHTML = 'Current Scores: '+correct+'/'+answerd;
           document.querySelector('#cr').innerHTML = 'Correct Rate: '+ Math.floor((correct/answerd)*100)+'%';
           this.start();
         }
-      });
+      }).bind(ToeicPractice.prototype));
 
-      btnR.addEventListener('click', function(event){
+      btnR.addEventListener('click', (function(event){
         this.reset();
-      })
+      }).bind(ToeicPractice.prototype));
     },
     test(){
       var html = "<div id='question'></div>";
@@ -118,7 +117,7 @@
     getQuestion(){
       var xhr = new XMLHttpRequest();
       xhr.open('GET', 'https://spreadsheets.google.com/feeds/list/10EvroHjVf8ARi2qbSOoRmbpscSau-p1aG4BjdsahlCU/1/public/values?alt=json-in-script', true);
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = (function () {
       if (xhr.readyState == 4) {
         if (xhr.status == 200) {
           var json = xhr.responseText;
@@ -127,7 +126,7 @@
           do{
             l = Math.floor(Math.random()*obj.feed.entry.length);
           }while(l==this.last);
-          this.last = l;
+          last = l;
           var data = obj.feed.entry[l].gsx$q.$t + '<br>(A)' + obj.feed.entry[l].gsx$opt1.$t + '<br>(B)'+ obj.feed.entry[l].gsx$opt2.$t + '<br>(C)' + obj.feed.entry[l].gsx$opt3.$t + '<br>(D)' + obj.feed.entry[l].gsx$opt4.$t ;
           var q = obj.feed.entry[l].gsx$q.$t;
           var opt1 = obj.feed.entry[l].gsx$opt1.$t;
@@ -139,18 +138,18 @@
           var option2 = document.querySelector('#option2');
           var option3 = document.querySelector('#option3');
           var option4 = document.querySelector('#option4');
-          this.ans = obj.feed.entry[l].gsx$ans.$t;    
+          ans = obj.feed.entry[l].gsx$ans.$t;    
           question.innerHTML = q;
           option1.innerHTML = opt1;
           option2.innerHTML = opt2;
           option3.innerHTML = opt3;
           option4.innerHTML = opt4;
-          this.answerd++;
+          answerd++;
          } else {
           alert('Network error occured.');
          }
        }
-      };
+      }).bind(ToeicPractice.prototype);
         xhr.send();
     }
    };
