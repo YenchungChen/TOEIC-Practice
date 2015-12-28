@@ -29,10 +29,10 @@ describe('TOEIC Practice',function(){
   describe('Check Initial Status',function(){
     tp.reset();
     it('Answered question',function(){
-      assert.equal('0',tp.answerd);
+      assert.equal('0',answerd);
     })
     it('Correct question',function(){
-      assert.equal('0',tp.correct);
+      assert.equal('0',correct);
     })
     it('Current Scores',function(){
       assert.equal(document.querySelector('#cs').innerHTML,'Current Scores: ');
